@@ -10,7 +10,7 @@ const connectDB = require('./config/db');
 dotenv.config();
 
 //MONGODB CONNECTION
-connectDB
+connectDB();
 
 //rest object
 const app = express();
@@ -24,6 +24,7 @@ app.use(morgan('dev'))
 //ROUTES
 //1. test route
 app.use('/api/v1/test', require('./routes/testRoutes'));
+app.use('/api/v1/auth', require("./routes/authRoutes"));
 
 //PORT
 const PORT = process.env.PORT || 5050;
