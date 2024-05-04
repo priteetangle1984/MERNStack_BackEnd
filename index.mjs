@@ -8,6 +8,8 @@ import routes from "./routes/users.mjs";
 import connectDB from './config/db.mjs';
 import colors from 'colors';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import AuthRoute from "./routes/AuthRoute.mjs"
 
 //rest object
 const app = express();
@@ -20,11 +22,13 @@ app.use(cors({ origin: true, credentials: true }));
 // use the body-parser middleware to parse JSON and URL-encoded data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 // use the routes module as a middleware
 // for the /Users path
 app.use("/users", routes);
+app.use("/", AuthRoute);
 
 // Load environment variables from .env file
 dotenv.config();
