@@ -46,6 +46,7 @@ const loginController = async (req, res) => {
         message: "Invalid Credentials",
       });
     }
+
     //check role
     if (user.role !== req.body.role) {
       return res.status(500).send({
@@ -64,9 +65,24 @@ const loginController = async (req, res) => {
         message: "Invalid Credentials",
       });
     }
+
+
+    try {
+      // Decode the token to see its contents
+      const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = jwt.decode(token);
+      console.log('Decoded Token:', decodedToken);
+    } catch (error) {
+      console.error('Token Decoding Error:', error);
+    }
+
+    
+    // Sign JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
+
+    
     return res.status(200).send({
       success: true,
       message: "Login Successfully",
@@ -86,21 +102,23 @@ const loginController = async (req, res) => {
 // Define the currentUserController function
 export const currentUserController = async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.body.userId });
+    const user = await User.findOne({ _id: req.userId }); // Use req.userId instead of req.body.userId
+    console.log(user)
     return res.status(200).send({
       success: true,
       message: "User Fetched Successfully",
-      user,
+      user: user,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
       success: false,
-      message: "unable to get current user",
+      message: "Unable to get current user",
       error,
     });
   }
 };
+
 
 export default  { registerController, loginController, currentUserController };
 
