@@ -1,39 +1,106 @@
+// import createSecretToken from "../util/SecretToken.mjs"
 import User from '../models/User.mjs';
-import createSecretToken from "../util/SecretToken.mjs"
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs'; // Import bcrypt
 
 
-const Signup = async (req, res) => {
+const registerController = async (req, res) => {
   try {
-    const existingUser = await User.findOne({ email: req.body.email });
-    // validation
-    if (existingUser) {
-      return res.status(200).json({
+    const exisitingUser = await User.findOne({ email: req.body.email });
+    //validation
+    if (exisitingUser) {
+      return res.status(200).send({
         success: false,
-        message: "User already exists",
+        message: "User ALready exists",
       });
     }
-    // hash password
+    //hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     req.body.password = hashedPassword;
-    // create new user
+    //rest data
     const user = new User(req.body);
     await user.save();
-    return res.status(201).json({
+    return res.status(201).send({
       success: true,
-      message: "User registered successfully",
+      message: "User Registerd Successfully",
       user,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    res.status(500).send({
       success: false,
-      message: "Error in Register API",
+      message: "Error In Register API",
       error,
     });
   }
 };
 
-export default Signup;
+//login call back
+const loginController = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "Invalid Credentials",
+      });
+    }
+    //check role
+    if (user.role !== req.body.role) {
+      return res.status(500).send({
+        success: false,
+        message: "role dosent match",
+      });
+    }
+    //compare password
+    const comparePassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!comparePassword) {
+      return res.status(500).send({
+        success: false,
+        message: "Invalid Credentials",
+      });
+    }
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+    return res.status(200).send({
+      success: true,
+      message: "Login Successfully",
+      token,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error In Login API",
+      error,
+    });
+  }
+};
+
+// Define the currentUserController function
+export const currentUserController = async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.body.userId });
+    return res.status(200).send({
+      success: true,
+      message: "User Fetched Successfully",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "unable to get current user",
+      error,
+    });
+  }
+};
+
+export default  { registerController, loginController, currentUserController };
+

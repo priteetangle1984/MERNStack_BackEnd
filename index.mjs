@@ -28,7 +28,9 @@ app.use(cookieParser());
 // use the routes module as a middleware
 // for the /Users path
 app.use("/users", routes);
+// app.use("/", AuthRoute);
 app.use("/", AuthRoute);
+
 
 // Load environment variables from .env file
 dotenv.config();
