@@ -10,6 +10,7 @@ import colors from 'colors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import AuthRoute from "./routes/AuthRoute.mjs"
+import InventoryRoute from "./routes/InventoryRoute.mjs"
 
 //rest object
 const app = express();
@@ -30,6 +31,7 @@ app.use(cookieParser());
 app.use("/users", routes);
 // app.use("/", AuthRoute);
 app.use("/", AuthRoute);
+app.use("/", InventoryRoute)
 
 
 // Load environment variables from .env file
