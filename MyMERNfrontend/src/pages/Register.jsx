@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";  (commented this line bcoz of react showing error)
+import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 
 function Register() {
@@ -15,7 +16,14 @@ function Register() {
 
   const onChange = (e) => {
     // Update formData state when input values change
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -27,7 +35,7 @@ function Register() {
         <p>Please create an account</p>
       </section>
       <section className="form">
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <input
               type="text"

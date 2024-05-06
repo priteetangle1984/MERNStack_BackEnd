@@ -49,8 +49,8 @@ app.use(morgan('dev'));
 
 //LISTEN
 // Start server
-app.get("/", (req, res) => res.send("Hello world!"));
-const PORT = process.env.PORT || 5050;
+app.get("/", (req, res) => res.json("Hello world!"));
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Node Server Running In Mode On Port ${PORT}`);
 });

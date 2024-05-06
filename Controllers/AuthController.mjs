@@ -9,7 +9,7 @@ const Signup = async (req, res) => {
     const existingUser = await User.findOne({ email: req.body.email });
     // validation
     if (existingUser) {
-      return res.status(200).send({
+      return res.status(200).json({
         success: false,
         message: "User already exists",
       });
@@ -21,14 +21,14 @@ const Signup = async (req, res) => {
     // create new user
     const user = new User(req.body);
     await user.save();
-    return res.status(201).send({
+    return res.status(201).json({
       success: true,
       message: "User registered successfully",
       user,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
+    res.status(500).json({
       success: false,
       message: "Error in Register API",
       error,

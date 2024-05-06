@@ -15,7 +15,7 @@ router.get('/test', (req, res) => res.send('User route testing!'));
 router.get('/', (req, res) => {
   User.find()
     .then(Users => res.json(Users))
-    .catch(err => res.status(404).json({ noUsersfound: 'No Users found' }));
+    .catch(err => res.status(404).json({ noUserfound: 'No Users found' }));
 });
 
 // @route   GET api/Users/:id

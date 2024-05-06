@@ -1,5 +1,6 @@
 // import { Login } from "@mui/icons-material";
-import React, { useState } from "react";
+// import React, { useState } from "react";  (commented this line bcoz of react showing error)
+import { useState } from "react";
 import { FaSignInAlt } from "react-icons/fa";
 
 function Login() {
