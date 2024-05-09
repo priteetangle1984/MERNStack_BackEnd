@@ -1,3 +1,5 @@
+import React from "react";
+
 import { useState } from "react";
 import InputType from "./InputType";
 import { Link } from "react-router-dom";

@@ -121,4 +121,3 @@ export const currentUserController = async (req, res) => {
 
 
 export default  { registerController, loginController, currentUserController };
-

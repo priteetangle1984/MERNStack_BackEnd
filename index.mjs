@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use("/users", routes);
 // app.use("/", AuthRoute);
 app.use("/", AuthRoute);
-app.use("/", InventoryRoute)
+app.use("/inventory", InventoryRoute)
 
 
 // Load environment variables from .env file
@@ -58,3 +58,11 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Node Server Running In Mode On Port ${PORT}`);
 });
+
+
+// const port = process.env.PORT || 3000; // Default to port 3000 if PORT environment variable is not set
+
+// const server = app.listen(port, '0.0.0.0', () => {
+//   console.log(`Server is running on port ${port}`);
+// });
+

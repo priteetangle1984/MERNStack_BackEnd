@@ -1,18 +1,25 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
+import Login from "./components/pages/auth/Login";
+import Register from "./components/pages/auth/Register";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
+    <>
+      <ToastContainer />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </>
   );
 }
 
+// ============================================================================
 //
 // import Home from "./pages/Home";
 // import Login from "./pages/auth/Login";
@@ -143,38 +150,37 @@ export default function App() {
 // }
 
 // export default App;
+// =============================================================================..
 
-// // import { React } from "react";
-// // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// // import { ToastContainer } from "react-toastify";
-// // import "react-toastify/dist/ReactToastify.css";
-// // import "bootstrap/dist/css/bootstrap.min.css";
-// // import Home from "./pages/Home";
-// // import Login from "./pages/auth/Login";
-// // import Register from "./pages/auth/Register";
-// // import Contact from "./pages/Contact";
-// // import Header from "./components/Header";
-// // import Footer from "./components/Footer";
+// import { React } from "react";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import Home from "./pages/Home";
+// import Login from "./pages/auth/Login";
+// import Register from "./pages/auth/Register";
+// import Contact from "./pages/Contact";
+// import Header from "./components/Header";
+// import Footer from "./components/Footer";
 
-// // function App() {
-// //   return (
-// //     <>
-// //       <Router>
-// //         <div className="container"></div>
-// //         <Routes>
-// //           <Route path="/" element={<Home />} />
-// //           <Route path="/login" element={<Login />} />
-// //           <Route path="/register" element={<Register />} />
-// //           <Route path="/contact" element={<Contact />} />
-// //         </Routes>
-// //         <Header />
-// //         <Footer />
-// //       </Router>
-// {
-//   /* <ToastContainer /> */
+// function App() {
+//   return (
+//     <>
+//       <Router>
+//         <div className="container"></div>
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/login" element={<Login />} />
+//           <Route path="/register" element={<Register />} />
+//           <Route path="/contact" element={<Contact />} />
+//         </Routes>
+//         <Header />
+//         <Footer />
+//       </Router>
+//       {<ToastContainer />}
+//     </>
+//   );
 // }
-// //     </>
-// //   );
-// // }
 
-// // export default App;
+// export default App;
